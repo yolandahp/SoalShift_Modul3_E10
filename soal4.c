@@ -1,10 +1,3 @@
-/*
-
-INI DARI KODINGAN SAYA DARI MODUL SOAL 2, KARENA SAYA RASA HAMPIR MIRIP HANYA DIEDIT2 SEDIKIT 
-
-*/
-
-
 #include <stdio.h>
 #include <string.h>
 #include <pthread.h>
@@ -16,13 +9,7 @@ pthread_t threadid[10005];
 int wait[10005];
 int start, end, n, t;
 
-
-struct rentang{
-    int awal;
-    int akhir;
-    int idx;
-};
-
+/*
 void *prime(void *arg){
     struct rentang *rg = (struct rentang *)arg;
 
@@ -49,15 +36,29 @@ void *prime(void *arg){
 
     wait[ind+1] = 0;
 }
+*/
 
 int main(void){
+    char x;
+    int num = 0, hit = 0, i;
+    int arr[10005];
 
-    printf("Masukkan angka N: ");
-    scanf("%d", &n);
+    for(i = 0; i < 10005; i++)
+        arr[i] = 0;
 
-    printf("Masukkan angka T: " );
-    scanf("%d", &t);
+    while(scanf("%c", &x) != '\n'){
+        if(x == ' '){
+            arr[num]++;
+            hit++;
+            num = 0;
+        }
+        else{
+            num = num*10 + x - '0';
+        }
+    }
 
+
+    /*
     int i, ret, batch;
 
     for(i = 0; i < 10005; i++)
@@ -90,7 +91,7 @@ int main(void){
         pthread_join(threadid[i], NULL);
     }
 
-
+    */
     exit(EXIT_SUCCESS);
     
     return 0;
