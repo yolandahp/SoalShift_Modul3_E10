@@ -8,39 +8,30 @@
 pthread_t threadid[10005];
 int wait[10005];
 
-struct passing(){
+struct passing{
     int numb;
     int idx;
 };
 
-/*
-void *prime(void *arg){
-    struct rentang *rg = (struct rentang *)arg;
 
-    int aw = rg->awal, ak = rg->akhir, ind = rg->idx;
+void *fact(void *arg){
+    struct passing *ps = (struct passing *)arg;
 
-    if(ind != 0)
-        while(wait[ind]);
+    int ag = ps->numb, id = ps->idx;
 
-    int j, k;
-    for(j = aw; j <= ak; j++){
-        if(j == 2) printf("2\n");
-        else{
-            int status = 1;
-            for(k = 2; k*k <= j; k++){
-                if(j%k == 0){
-                    status = 0;
-                    break;
-                }
-            }
+    while(wait[id]);
 
-            if(status) printf("%d\n", j);
-        }
-    }
+    int k;
+    long long int ans = 1;
 
-    wait[ind+1] = 0;
+    for(k = 1; k <= ag; k++)
+        ans*=(long long int)(k);
+
+    printf("Hasil %d! = %lld\n", ag, ans);
+
+    wait[id+1] = 0;
 }
-*/
+
 
 int main(void){
     char x;
@@ -50,7 +41,8 @@ int main(void){
     for(i = 0; i < 10005; i++)
         arr[i] = 0;
 
-    while(scanf("%c", &x) != '\n'){
+    while(scanf("%c", &x)){
+        if(x == '\n') break;
         if(x == ' '){
             arr[num]++;
             hit++;
@@ -60,6 +52,9 @@ int main(void){
             num = num*10 + x - '0';
         }
     }
+
+    arr[num]++;
+    hit++;
 
     hit = 0;
 
