@@ -7,7 +7,11 @@
 
 pthread_t threadid[10005];
 int wait[10005];
-int start, end, n, t;
+
+struct passing(){
+    int numb;
+    int idx;
+};
 
 /*
 void *prime(void *arg){
@@ -40,8 +44,8 @@ void *prime(void *arg){
 
 int main(void){
     char x;
-    int num = 0, hit = 0, i;
-    int arr[10005];
+    int num = 0, hit = 0, i,j, ret;
+    int arr[10005], arr2[10005];
 
     for(i = 0; i < 10005; i++)
         arr[i] = 0;
@@ -57,41 +61,29 @@ int main(void){
         }
     }
 
-
-    /*
-    int i, ret, batch;
+    hit = 0;
 
     for(i = 0; i < 10005; i++)
-        wait[i] = 1;
+        wait[i] = i;
 
-    batch = n/t;
+    for(i = 0; i < 10005; i++){
+        for(j = 0; j < arr[i]; j++){
+            struct passing *pass = malloc(sizeof(struct passing));
+            pass->numb = i;
+            pass->idx = hit;
 
-    for(i = 0; i < t; i++){
-        struct rentang *range = malloc(sizeof(struct rentang));
+            ret = pthread_create(&(threadid[hit]), NULL, fact, (void *) pass);
 
-        if(batch*i + 1 > 2) start = batch*i +1;
-        else start = 2;
+            if(ret) exit(EXIT_FAILURE);
 
-        if(batch*(i+1) < n) end = batch*(i+1);
-        else end = n;
-
-        range->awal = start;
-        range->akhir = end;
-        range->idx = i;
-
-        //printf("%d %d\n", range->awal, range->akhir);
-
-        ret = pthread_create(&(threadid[i]), NULL, prime, (void *) range);
-        
-        if(ret) exit(EXIT_FAILURE);
+            hit++;
+        }
     }
 
-    
-    for(i = 0; i < t; i++){
+    for(i = 0; i < hit; i++){
         pthread_join(threadid[i], NULL);
     }
 
-    */
     exit(EXIT_SUCCESS);
     
     return 0;
