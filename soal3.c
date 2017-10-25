@@ -6,6 +6,7 @@
 #include <stdlib.h>
 
 int lohan_h = 100, kepiting_h = 100;
+pthread_t threadid[3];
 
 
 void *lohanmin(void *arg){
@@ -30,89 +31,41 @@ void *kepitingmin(void *arg){
 	}
 }
 
+void *memberimakan(void *arg){
+	while(1){
+		if(kepiting_h <= 0 || kepiting_h > 100){
+			printf("Permainan berakhir\n");
+			exit(EXIT_SUCCESS);
+		}
 
+		printf("Lohan Status = %d\n", lohan_h);
+		printf("Kepiting Status = %d\n", kepiting_h);
 
-/*
+		printf("Tekan 1 jika ingin memberi makan lohan (+10)\nTekan 2 jika ingin memberi makan kepiting (+10)\n");
+		int x;
+		scanf("%d", &x);
 
-//ini dari kodingan soal no 4, hanya sebagai referensi penulisan
-
-
-pthread_t threadid[10005];
-int wait[10005];
-
-struct passing{
-    int numb;
-    int idx;
-};
-
-
-void *fact(void *arg){
-    struct passing *ps = (struct passing *)arg;
-
-    int ag = ps->numb, id = ps->idx;
-
-    while(wait[id]);
-
-    int k;
-    long long int ans = 1;
-
-    for(k = 1; k <= ag; k++)
-        ans*=(long long int)(k);
-
-    printf("Hasil %d! = %lld\n", ag, ans);
-
-    wait[id+1] = 0;
+		if(x == 1) lohan_h +=10;
+		else kepiting_h +=10;
+	}
 }
 
+int main(){
+	int ret, i;
 
-int main(void){
-    char x;
-    int num = 0, hit = 0, i,j, ret;
-    int arr[10005], arr2[10005];
+	ret = pthread_create(&(threadid[0]), NULL, &lohanmin, NULL);
+	if(ret) exit(EXIT_FAILURE);
 
-    for(i = 0; i < 10005; i++)
-        arr[i] = 0;
+	ret = pthread_create(&(threadid[1]), NULL, &kepitingmin, NULL);
+	if(ret) exit(EXIT_FAILURE);
 
-    while(scanf("%c", &x)){
-        if(x == '\n') break;
-        if(x == ' '){
-            arr[num]++;
-            hit++;
-            num = 0;
-        }
-        else{
-            num = num*10 + x - '0';
-        }
-    }
+	ret = pthread_create(&(threadid[2]), NULL, &memberimakan, NULL);
+	if(ret) exit(EXIT_FAILURE);
 
-    arr[num]++;
-    hit++;
-
-    hit = 0;
-
-    for(i = 0; i < 10005; i++)
-        wait[i] = i;
-
-    for(i = 0; i < 10005; i++){
-        for(j = 0; j < arr[i]; j++){
-            struct passing *pass = malloc(sizeof(struct passing));
-            pass->numb = i;
-            pass->idx = hit;
-
-            ret = pthread_create(&(threadid[hit]), NULL, fact, (void *) pass);
-
-            if(ret) exit(EXIT_FAILURE);
-
-            hit++;
-        }
-    }
-
-    for(i = 0; i < hit; i++){
+	for(i = 0; i < 3; i++){
         pthread_join(threadid[i], NULL);
     }
 
-    exit(EXIT_SUCCESS);
-    
+	exit(EXIT_SUCCESS);
     return 0;
 }
-*/
