@@ -25,7 +25,7 @@ void* play(void *arg){
 			if(c == '\n') break;
 		}
 
-		printf("Silahkan %s untuk menebak 4 lubang yang aman:\n", nama2);
+		printf("Silahkan %s untuk menebak 4 lubang yang aman (1-16):\n", nama2);
 
 		int hit = 0;
 		for(j = 0; j < 4; j++){
@@ -34,7 +34,7 @@ void* play(void *arg){
 		}
 
 		if(hit == 0){
-			printf("Selamat %s berhasil melewati ranjau!^^\n", nama2);
+			printf("Selamat %s berhasil melewati ranjau!^^ Score+1\n", nama2);
 			score2++;
 		}
 		else{
@@ -57,7 +57,7 @@ void* play(void *arg){
 			if(c == '\n') break;
 		}
 
-		printf("Silahkan %s untuk menebak 4 lubang yang aman:\n", nama1);
+		printf("Silahkan %s untuk menebak 4 lubang yang aman (1-16):\n", nama1);
 
 		int hit = 0;
 		for(j = 0; j < 4; j++){
@@ -66,7 +66,7 @@ void* play(void *arg){
 		}
 
 		if(hit == 0){
-			printf("Selamat %s berhasil melewati ranjau!^^\n", nama1);
+			printf("Selamat %s berhasil melewati ranjau!^^ Score+1\n", nama1);
 			score1++;
 		}
 		else{
