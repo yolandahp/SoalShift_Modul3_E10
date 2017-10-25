@@ -1,9 +1,3 @@
-/*
-
-INI TEMPLATE KODINGAN DARI KODINGAN SENDIRI SOAL LATIHAN MODUL NO 1
-
-
-*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
@@ -54,15 +48,17 @@ void* copy_file(void *arg){
 }
 
 int main(){
-
     int i;
-    int ret;
+    int ret1, ret2;
 
-    for(i = 0; i < 2; i++){
-        ret = pthread_create(&(threadid[i]),NULL,&copy_file,NULL);
-        if(ret)
-            exit(EXIT_FAILURE);
-    }
+    const char *word1 = "Ifah";
+    const char *word2 = "Fina";
+
+    ret1 = pthread_create(&(threadid[i]),NULL,cari,(void *)word1);
+    if(ret1) exit(EXIT_FAILURE);
+
+    ret2 = pthread_create(&(threadid[i]),NULL,cari,(void *)word2);
+    if(ret2) exit(EXIT_FAILURE);
 
     pthread_join(threadid[0], NULL);
     pthread_join(threadid[1], NULL);
