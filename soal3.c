@@ -11,33 +11,33 @@ pthread_t threadid[3];
 
 void *lohanmin(void *arg){
 	while(1){
-		if(lohan_h <= 0 || lohan_h > 100){
+		sleep(10);
+		lohan_h -= 15;
+		if(lohan_h <= 0){
 			printf("Permainan berakhir\n");
 			exit(EXIT_SUCCESS);
 		}
-		sleep(10);
-		lohan_h -= 15;
+		printf("Lohan Status = %d\n", lohan_h);
+		printf("Kepiting Status = %d\n", kepiting_h);
 	}
 }
 
 void *kepitingmin(void *arg){
 	while(1){
-		if(kepiting_h <= 0 || kepiting_h > 100){
+		sleep(20);
+		kepiting_h -= 10;
+		if(kepiting_h <= 0){
 			printf("Permainan berakhir\n");
 			exit(EXIT_SUCCESS);
 		}
-		sleep(20);
-		kepiting_h -= 10;
+		printf("Lohan Status = %d\n", lohan_h);
+		printf("Kepiting Status = %d\n", kepiting_h);
+		
 	}
 }
 
 void *memberimakan(void *arg){
 	while(1){
-		if(kepiting_h <= 0 || kepiting_h > 100){
-			printf("Permainan berakhir\n");
-			exit(EXIT_SUCCESS);
-		}
-
 		printf("Lohan Status = %d\n", lohan_h);
 		printf("Kepiting Status = %d\n", kepiting_h);
 
@@ -47,6 +47,11 @@ void *memberimakan(void *arg){
 
 		if(x == 1) lohan_h +=10;
 		else kepiting_h +=10;
+
+		if(lohan_h>100 || kepiting_h>100){
+			printf("Permainan berakhir\n");
+			exit(EXIT_SUCCESS);
+		}
 	}
 }
 
