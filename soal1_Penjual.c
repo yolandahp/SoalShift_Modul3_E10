@@ -41,4 +41,7 @@ void main(){
 		}
 
 	}
+	shmdt(jlh_stok)	;
+	shmctl(shmid,IPC_RMID,NULL);
+	return 0;
 }
