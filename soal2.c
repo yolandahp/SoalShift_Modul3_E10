@@ -19,13 +19,13 @@ void* play(void *arg){
     pthread_t id=pthread_self();
     
     if(pthread_equal(id,threadid[0])){
-		printf("Player 1 turn!\nUntuk player 1 silahkan masukkan 1-4 lubang yang akan diisi ranjau (1-16):\n");
+		printf("%s's turn!\nUntuk %s silahkan masukkan 1-4 lubang yang akan diisi ranjau (1-16):\n", nama1, nama1);
 		while(scanf("%d%c", &n, &c)){
 			ranjau[n][0] = 1;
 			if(c == '\n') break;
 		}
 
-		printf("Silahkan player 2 untuk menebak 4 lubang yang aman:\n");
+		printf("Silahkan %s untuk menebak 4 lubang yang aman:\n", nama2);
 
 		int hit = 0;
 		for(j = 0; j < 4; j++){
@@ -34,16 +34,16 @@ void* play(void *arg){
 		}
 
 		if(hit == 0){
-			printf("Selamat player 2 berhasil melewati ranjau!^^\n");
+			printf("Selamat %s berhasil melewati ranjau!^^\n", nama2);
 			score2++;
 		}
 		else{
-			printf("Tidaaaak player 2 menginjak ranjau :(\n");
+			printf("Tidaaaak %s menginjak ranjau :(\n", nama2);
 			exit(EXIT_SUCCESS);
 		}
 
 		if(score2 >= 10){
-			printf("PLAYER 2 WIN!\n");
+			printf("%s WIN!\n", nama2);
 			exit(EXIT_SUCCESS);
 		}
 
@@ -51,13 +51,13 @@ void* play(void *arg){
     }
     else if(pthread_equal(id,threadid[1])){
         while(tunggu);
-        printf("Player 2 turn!\nUntuk player 2 silahkan masukkan 1-4 lubang yang akan diisi ranjau (1-16):\n");
+        printf("%s's turn!\nUntuk %s silahkan masukkan 1-4 lubang yang akan diisi ranjau (1-16):\n", nama2, nama2);
 		while(scanf("%d%c", &n, &c)){
 			ranjau[n][1] = 1;
 			if(c == '\n') break;
 		}
 
-		printf("Silahkan player 1 untuk menebak 4 lubang yang aman:\n");
+		printf("Silahkan %s untuk menebak 4 lubang yang aman:\n", nama1);
 
 		int hit = 0;
 		for(j = 0; j < 4; j++){
@@ -66,16 +66,16 @@ void* play(void *arg){
 		}
 
 		if(hit == 0){
-			printf("Selamat player 1 berhasil melewati ranjau!^^\n");
+			printf("Selamat %s berhasil melewati ranjau!^^\n", nama1);
 			score1++;
 		}
 		else{
-			printf("Tidaaaak player 1 menginjak ranjau :(\n");
+			printf("Tidaaaak %s menginjak ranjau :(\n", nama1);
 			exit(EXIT_SUCCESS);
 		}
 
 		if(score1 >= 10){
-			printf("PLAYER 1 WIN!\n");
+			printf("%s WIN!\n", nama1);
 			exit(EXIT_SUCCESS);
 		}
 
@@ -86,8 +86,8 @@ void* play(void *arg){
 }
 
 void* cek_status(void *arg){
-	printf("Score Player 1: %d\n", score1);
-	printf("Score Player 2: %d\n", score2);
+	printf("Score %s: %d\n", nama1, score1);
+	printf("Score %s: %d\n", nama2, score2);
 	
     return NULL;
 }
