@@ -7,7 +7,7 @@
 void main(){
 	key_t key=7667;
 	int *jlh_stok;
-	int c, i, kurang;
+	int c, i, kurang, temp;
 
 	char barang[6][10]={"MP4A1", "PM2-V1", "SPR-3", "SS2-V5", "SPG1_V3", "MINE"};
 	
@@ -28,7 +28,8 @@ void main(){
 			scanf("%s %d", n_barang, &kurang);
 			for(i=0;i<6;i++){
 				if(!strcmp(n_barang, barang[i])){
-					if((jlh_stok[i]-=kurang)>=0){
+					temp=jlh_stok[i]-kurang;
+					if(temp>=0){
 						jlh_stok[i]-=kurang;
 					printf("Jumlah %s di stok = %d barang\n", barang[i], jlh_stok[i]);
 				}
